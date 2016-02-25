@@ -79,7 +79,12 @@ var AnimationLayer = cc.Layer.extend({
             onTouchBegan: this.onTouchBegan,
             onTouchMoved: this.onTouchMoved,
             onTouchEnded: this.onTouchEnded
-        }, this)
+        }, this);
+
+        cc.eventManager.addListener({
+            event: cc.EventListener.KEYBOARD,
+            onKeyReleased: this.onKeyReleased,
+        }, this);
 
         this.scheduleUpdate();
     },
@@ -153,7 +158,13 @@ var AnimationLayer = cc.Layer.extend({
                 break;
         }
     },
-
+    onKeyReleased:function(key, event) {
+    	switch(key) {
+      	case cc.KEY.space:
+          event.getCurrentTarget().jump();
+      		break;
+      }
+    },
     jump:function () {
         cc.log("jump");
         if (this.stat == RunnerStat.running) {
